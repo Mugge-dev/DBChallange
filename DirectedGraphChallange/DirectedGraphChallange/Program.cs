@@ -9,14 +9,13 @@ namespace DirectedGraphChallange
 {
     class Program
     {
-        public static string SampleInput { get; } = "SampleInput.csv";
-        public static string DirectedGraphInput { get; } = "DirectedGraphInput.csv";
+        private static string SampleInput { get; } = "SampleInput.csv";
+        private static string DirectedGraphInput { get; } = "DirectedGraphInput.csv";
 
-        public static List<List<Node>> Graph = new List<List<Node>>();
-        public static List<int[]> ValidPaths = new List<int[]>();
-        public static Stack<int> TempPath = new Stack<int>();
-        public static int CurrentMax;
-        public static Stack<int[]> CurrentMaxPath = new Stack<int[]>();
+        private static List<List<Node>> Graph = new List<List<Node>>();
+        private static Stack<int> TempPath = new Stack<int>();
+        private static int CurrentMax;
+        private static Stack<int[]> CurrentMaxPath = new Stack<int[]>();
 
 
         static void Main(string[] args)
@@ -43,7 +42,7 @@ namespace DirectedGraphChallange
         }
 
         /// <summary>
-        /// Goes through the graph according to the rules and saves all valid paths. Saves the path which gives the highest total and the total value, for printing.
+        /// Goes through the graph according to the rules. Saves the path which gives the highest total and the total value, for printing.
         /// </summary>
         /// <param name="nextNode">The node to operate from</param>
         static void CalcPath(Node nextNode)
@@ -71,10 +70,7 @@ namespace DirectedGraphChallange
                     }
                     CurrentMaxPath.Push(TempPath.ToArray());
                 }
-
-                ValidPaths.Add(TempPath.ToArray());
             }
-
             TempPath.Pop();
         }
 
