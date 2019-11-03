@@ -9,6 +9,9 @@ namespace DirectedGraphChallange
 {
     class Program
     {
+        public static string SampleInput { get; } = "SampleInput.csv";
+        public static string DirectedGraphInput { get; } = "DirectedGraphInput.csv";
+
         public static List<List<Node>> Graph = new List<List<Node>>();
         public static List<int[]> ValidPaths = new List<int[]>();
         public static Stack<int> TempPath = new Stack<int>();
@@ -20,7 +23,7 @@ namespace DirectedGraphChallange
         {
             try
             {
-                BuildGraph();
+                Graph = GraphBuilder.BuildGraph(DirectedGraphInput);
             }
             catch (DirectoryNotFoundException)
             {
@@ -34,40 +37,15 @@ namespace DirectedGraphChallange
                 Console.ReadLine();
                 return;
             }
-            CalcPath(Graph[0][0]);
+
+            CalcPath(Graph[0][0]); // [0][0] is the first node of the graph
             PrintResult();
         }
 
-        static void BuildGraph()
-        {
-            using (var reader = new StreamReader(@"../../Resources/DirectedGraphInput.csv"))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-
-                    var layer = new List<Node>();
-                    foreach (var item in values)
-                    {
-                        layer.Add(new Node(int.Parse(item)));
-                    }
-                    Graph.Add(layer);
-                }
-            }
-
-            for (int i = 0; i < Graph.Count - 1; i++)
-            {
-                var layer = Graph[i];
-
-                for (int j = 0; j < layer.Count; j++)
-                {
-                    layer[j].Left = Graph[i + 1][j];
-                    layer[j].Right = Graph[i + 1][j + 1];
-                }
-            }
-        }
-
+        /// <summary>
+        /// Goes through the graph according to the rules and saves all valid paths. Saves the path which gives the highest total and the total value, for printing.
+        /// </summary>
+        /// <param name="nextNode">The node to operate from</param>
         static void CalcPath(Node nextNode)
         {
             TempPath.Push(nextNode.Value);
@@ -83,6 +61,7 @@ namespace DirectedGraphChallange
             if (nextNode.Right == null && nextNode.Left == null)
             {
                 var TempPathSum = TempPath.Sum();
+
                 if (TempPathSum > CurrentMax)
                 {
                     CurrentMax = TempPathSum;
@@ -99,6 +78,10 @@ namespace DirectedGraphChallange
             TempPath.Pop();
         }
 
+
+        /// <summary>
+        /// Prints maximum total value found along with the path where this result was found.
+        /// </summary>
         static void PrintResult()
         {
             Console.WriteLine($"Max sum: {CurrentMax}");
