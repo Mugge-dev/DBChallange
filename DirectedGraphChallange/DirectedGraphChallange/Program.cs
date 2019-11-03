@@ -87,6 +87,7 @@ namespace DirectedGraphChallange
             Console.WriteLine($"Max sum: {CurrentMax}");
             var path = CurrentMaxPath.Peek().Reverse();
             Console.WriteLine($"Path: { String.Join(", ", path) }");
+            Console.WriteLine("Press enter to continue...");
             Console.ReadLine();
         }
     }

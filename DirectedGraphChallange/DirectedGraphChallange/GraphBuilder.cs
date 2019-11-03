@@ -23,10 +23,10 @@ namespace DirectedGraphChallange
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var values = line.Split(',');
+                    var nodeValues = line.Split(',');
 
                     var layer = new List<Node>();
-                    foreach (var item in values)
+                    foreach (var item in nodeValues)
                     {
                         layer.Add(new Node(int.Parse(item)));
                     }
