@@ -13,9 +13,9 @@ namespace DirectedGraphChallange
         private static string DirectedGraphInput { get; } = "DirectedGraphInput.csv";
 
         private static List<List<Node>> Graph = new List<List<Node>>();
-        private static Stack<int> TempPath = new Stack<int>();
+        private static readonly Stack<int> TempPath = new Stack<int>();
         private static int CurrentMax;
-        private static Stack<int[]> CurrentMaxPath = new Stack<int[]>();
+        private static readonly Stack<int[]> CurrentMaxPath = new Stack<int[]>();
 
 
         static void Main(string[] args)
